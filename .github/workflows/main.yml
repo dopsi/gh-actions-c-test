@@ -24,20 +24,11 @@ jobs:
           imageName: ghcr.io/dopsi/gh-actions-c-test
           cacheFrom: ghcr.io/dopsi/gh-actions-c-test
 
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/dopsi/gh-actions-c-test
-      options: --user root
+  build-dispatch:
     strategy:
       matrix:
         compiler: [clang, gcc]
     needs: docker
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Build
-        run: |
-          CC=${{ matrix.compiler }} LD=${{ matrix.compiler }} cmake -B build -S .
-          VERBOSE=1 cmake --build build
+    uses: dopsi/gh-actions-c-test/.github/workflows/parametric_build.yml@new_ci
+    with:
+      toolchain: ${{ matrix.compiler }}
