@@ -1,5 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include "foo.h"
 
 int main(void) {
-    printf("hello, world!\n");
+    srand(time(NULL));
+    int i = rand();
+    printf("hello, world! %d -> %d\n", i, foo_bar(i));
 }
