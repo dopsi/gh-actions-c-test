@@ -1,0 +1,43 @@
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build dev container
+        uses: devcontainers/ci@v0.3
+        with:
+          push: always
+          imageName: ghcr.io/dopsi/gh-actions-c-test
+          cacheFrom: ghcr.io/dopsi/gh-actions-c-test
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/dopsi/gh-actions-c-test
+      options: --user root
+    strategy:
+      matrix:
+        compiler: [clang, gcc]
+    needs: docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          CC=${{ matrix.compiler }} LD=${{ matrix.compiler }} cmake -B build -S .
+          VERBOSE=1 cmake --build build
