@@ -29,6 +29,6 @@ jobs:
       matrix:
         compiler: [clang, gcc]
     needs: docker
-    uses: dopsi/gh-actions-c-test/.github/workflows/parametric_build.yml@new_ci
+    uses: dopsi/gh-actions-c-test/.github/workflows/parametric_build.yml@main
     with:
       toolchain: ${{ matrix.compiler }}
