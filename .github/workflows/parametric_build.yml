@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dopsi/gh-actions-c-test
-      options: --user root
 
     steps:
       - name: Checkout repository
