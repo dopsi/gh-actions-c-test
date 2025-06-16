@@ -3,5 +3,6 @@
 
 #define GIT_DATE @GIT_DATE@
 #define GIT_DESC "@GIT_DESC@"
+#define BUILD_DATE "@BUILD_DATE@"
 
 #endif // SRC_CONFIG_H

@@ -8,7 +8,7 @@
 #include "config.h"
 
 int main(void) {
-    LOG_INF("start %s %s", GIT_DESC, GIT_DATE);
+    LOG_INF("start %s %s (%s)", GIT_DESC, GIT_DATE, BUILD_DATE);
     srand(time(NULL));
     int i = rand();
     int j = foo_bar(j);

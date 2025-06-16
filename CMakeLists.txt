@@ -6,6 +6,7 @@ option(gh_c_testing "Enable testing build")
 
 execute_process(COMMAND git describe --abbrev --dirty OUTPUT_VARIABLE GIT_DESC OUTPUT_STRIP_TRAILING_WHITESPACE)
 execute_process(COMMAND git log --pretty="%aI" -n1 OUTPUT_VARIABLE GIT_DATE OUTPUT_STRIP_TRAILING_WHITESPACE)
+string(TIMESTAMP BUILD_DATE "%Y-%m-%dT%H:%M:%S" UTC)
 
 if (${gh_c_testing})
     enable_testing()
