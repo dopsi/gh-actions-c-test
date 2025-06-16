@@ -46,7 +46,7 @@ jobs:
     needs: build
     container:
       image: ghcr.io/dopsi/gh-actions-c-test
-      options: --user ci
+      options: --user ci --privileged
 
     steps:
       - name: Checkout repository
