@@ -1,0 +1,7 @@
+#ifndef FOO_CONFIG_H
+#define FOO_CONFIG_H
+
+#define GIT_DATE @GIT_DATE@
+#define GIT_DESC "@GIT_DESC@"
+
+#endif // FOO_CONFIG_H
