@@ -40,3 +40,18 @@ jobs:
       - name: Run
         run: |
           VERBOSE=1 cmake --build build -- test
+
+  reproducibility:
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: ghcr.io/dopsi/gh-actions-c-test
+      options: --user ci
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          CC=${{ inputs.toolchain }} LD=${{ inputs.toolchain }} reprotest -s . "cmake -B build -S . && cmake --build build" "build/src/gh-c build/lib/*/*.a"
