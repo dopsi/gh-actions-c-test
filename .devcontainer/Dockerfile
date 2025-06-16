@@ -1,7 +1,8 @@
-FROM mcr.microsoft.com/devcontainers/base:alpine
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
 USER root
 
-RUN apk add gcc cmake clang lld samurai
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends reprotest diffoscope disorderfs faketime cmake clang lld ninja-build
 
 USER vscode
